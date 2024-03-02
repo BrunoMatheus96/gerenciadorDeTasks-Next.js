@@ -15,7 +15,7 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
 
             const tarefa = req.body as CadastroTarefaRequisicao
 
-            //Título
+            //Validações do Título
             if (!tarefa.titulo) {
                 return res.status(400).json({ erro: `O campo título é obrigatório` });
             }
@@ -25,29 +25,29 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
                 return res.status(413).json({ erro: `Limite de caracteres alcançado` });
             }
 
-            //Descrição
+            //Validações da Descrição
             if (tarefa.descricao.length >= 160) {
                 console.log("Paassou de 160 caracteres")
                 return res.status(413).json({ erro: `Limite de caracteres alcançado` });
             }
 
-            //Dia todo?
+            //Validações do "Dia todo?"
             if (!tarefa.diaTodo) {
                 tarefa.diaTodo = false
             }
 
-            //Se repete?
-            const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente'];
+            //Validações do "Se repete?"
+            const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente']; //Lista que esse campo irá aceitar
+            //No if foi informado que o campo repetição só pode aceitar o array acima, vazio (' ') e nulo ('')
             if (tarefa.repeticao !== '' && tarefa.repeticao !== ' ' && !tipo.includes(tarefa.repeticao)) {
 
                 return res.status(400).json({ erro: `Texto inválido para esse campo` });
 
             }
 
-
             //salvar no banco de dados
             const tarefaASerSalva = { // Cria uma const com o que é esperado de uma tarefa e isso foi definido no Model
-                titulo: tarefa.titulo,
+                tituloTarefa: tarefa.titulo,
                 descricao: tarefa.descricao,
                 data: tarefa.data,
                 hora: tarefa.hora,

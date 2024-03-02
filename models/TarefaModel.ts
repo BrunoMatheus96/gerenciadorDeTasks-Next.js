@@ -16,5 +16,5 @@ const TarefaSchema = new Schema({
 export const TarefaModel = (mongoose.models.tarefas ||
     mongoose.model('tarefas', TarefaSchema));
 
-/*Basicamente, este código define a estrutura dos documentos na coleção "usuarios" do MongoDB, especificando quais campos os documentos podem ter e quais são obrigatórios.
+/*Basicamente, este código define a estrutura dos documentos na coleção "tarefas" do MongoDB, especificando quais campos os documentos podem ter e quais são obrigatórios.
 O modelo resultante pode ser usado para criar, ler, atualizar e excluir documentos nesta coleção. */
