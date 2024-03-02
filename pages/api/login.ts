@@ -2,6 +2,8 @@ import { LoginResposta } from "@/types/LoginResposta";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from 'jsonwebtoken';
+import { conectarMongoDB } from '../../middlewares/conectarMongoDB';
+
 
 const endpointLogin = async (
     req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | LoginResposta>) => {
@@ -28,4 +30,4 @@ const endpointLogin = async (
 }
 
 /*Essa linha faz com que quando o if for chamado, ele primeiro vai tentar se conectar ao banco de dados e depois executar o endpoint (if)*/
-export default (endpointLogin);
+export default conectarMongoDB(endpointLogin);
