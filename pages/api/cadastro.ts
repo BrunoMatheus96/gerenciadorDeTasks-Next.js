@@ -74,7 +74,7 @@ const endpointCadastro = async (req: NextApiRequest, res: NextApiResponse<Respos
             await UsuarioModel.create(usuarioASerSalvo); // O método create cria o objeto definido em usuarioASerSalvo na Coleção
             return res.status(200).json({ msg: "Usuário cadastrado com sucesso!" });
         }
-        console.log("Foi requisitado um " + req.method + ` o correto é um POST`);
+        console.log("Foi requisitado um " + req.method + ` mas correto é um POST`);
         return res.status(405).json({ erro: "Método informado não é válido" });
     } catch (e) {
         console.log(e);
