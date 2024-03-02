@@ -9,6 +9,7 @@ const UsuarioSchema = new Schema({
     senha: { type: String, required: true },
 });
  
+//O Model é uma classe que representa a estrutura de uma tabela no banco de dados.
 export const UsuarioModel = (mongoose.models.usuarios ||
     mongoose.model('usuarios', UsuarioSchema));
 
