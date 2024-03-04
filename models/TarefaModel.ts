@@ -4,7 +4,7 @@ import mongoose, { Schema } from "mongoose";
 //Usado na API de cadastro de tarefas
 const TarefaSchema = new Schema({
     //Campo required informa se o campo é obrigatório ou não
-    titulo: { type: String, required: true },
+    tituloTarefa: { type: String, required: true },
     descricao: { type: String, required: false },
     data: { type: String, required: false },
     hora: { type: String, required: false },

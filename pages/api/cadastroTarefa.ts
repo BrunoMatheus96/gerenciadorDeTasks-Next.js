@@ -13,7 +13,7 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
         //Se meu método for um POST então ele irá requisitar um payload
         if (req.method === "POST") {
 
-            const tarefa = req.body as CadastroTarefaRequisicao
+            const tarefa = req.body as CadastroTarefaRequisicao;
 
             //Validações do Título
             if (!tarefa.titulo) {
@@ -41,7 +41,7 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
             //No if foi informado que o campo repetição só pode aceitar o array acima, vazio (' ') e nulo ('')
             if (tarefa.repeticao !== '' && tarefa.repeticao !== ' ' && !tipo.includes(tarefa.repeticao)) {
 
-                return res.status(400).json({ erro: `Texto inválido para esse campo` });
+                return res.status(400).json({ erro: `Essa opção de repetição não é válida` });
 
             }
 
@@ -63,7 +63,7 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
         return res.status(405).json({ erro: "Método informado não é válido" });
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ erro: "Erro ao cadastrar usuário. Tente novamente mais tarde" });
+        return res.status(500).json({ erro: "Erro ao cadastrar tarefa. Tente novamente mais tarde" });
     }
 }
 
