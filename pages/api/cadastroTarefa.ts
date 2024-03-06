@@ -1,6 +1,7 @@
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { TarefaModel } from "@/models/TarefaModel";
+import { UsuarioModel } from "@/models/UsuarioModel";
 import { CadastroTarefaRequisicao } from "@/types/CadastroTarefaRequisicao";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -9,6 +10,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
     try {
+
+        const { userId } = req.query; // Usando um destructor cria uma constante userID com a propriedade userID que vem no query da request se a request existe
+        const usuarioLogado = await UsuarioModel.findById(userId); // Busca no Banco de Dados o usuário pelo id
+
         //Definição da requisição e tratativa do método
         //Se meu método for um POST então ele irá requisitar um payload
         if (req.method === "POST") {
@@ -47,6 +52,7 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
 
             //salvar no banco de dados
             const tarefaASerSalva = { // Cria uma const com o que é esperado de uma tarefa e isso foi definido no Model
+                idUsuario: usuarioLogado._id,
                 tituloTarefa: tarefa.titulo,
                 descricao: tarefa.descricao,
                 data: tarefa.data,
