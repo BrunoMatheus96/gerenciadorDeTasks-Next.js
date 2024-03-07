@@ -40,9 +40,11 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
             //Data
            
             //Validações do "Dia todo?"
+            /*
             if (!tarefa.diaTodo) {
                 tarefa.diaTodo = false
             }
+            */
 
             //Validações do "Se repete?"
             const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente']; //Lista que esse campo irá aceitar
@@ -53,6 +55,13 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
 
             }
 
+              //Validações de conclusão
+              /*
+              if (!tarefa.conclusao) {
+                tarefa.conclusao = false
+            }
+            */
+
             //salvar no banco de dados
             const tarefaASerSalva = { // Cria uma const com o que é esperado de uma tarefa e isso foi definido no Model
                 idUsuario: usuarioLogado._id,
@@ -61,7 +70,8 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
                 data: tarefa.data,
                 hora: tarefa.hora,
                 diaTodo: tarefa.diaTodo,
-                repeticao: tarefa.repeticao
+                repeticao: tarefa.repeticao,
+                conclusao: tarefa.conclusao
             }
 
             await TarefaModel.create(tarefaASerSalva); // O método create cria o objeto definido em tarefaASerSalvo na Coleção

@@ -5,4 +5,5 @@ export type CadastroTarefaRequisicao = {
     hora: string,
     diaTodo: boolean,
     repeticao: string,
+    conclusao: boolean,
     }
