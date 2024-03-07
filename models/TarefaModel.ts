@@ -7,7 +7,7 @@ const TarefaSchema = new Schema({
     idUsuario: { type: String, required: true }, // Guarda uma String com o ID do usuário e é obrigatório para a criação
     tituloTarefa: { type: String, required: true },
     descricao: { type: String, required: false },
-    data: { type: String, required: false },
+    data: { type: Date, required: false },
     hora: { type: String, required: false },
     diaTodo: { type: Boolean, required: false },
     repeticao: { type: String, required: false }

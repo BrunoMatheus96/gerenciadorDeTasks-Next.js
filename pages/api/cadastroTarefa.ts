@@ -5,6 +5,7 @@ import { UsuarioModel } from "@/models/UsuarioModel";
 import { CadastroTarefaRequisicao } from "@/types/CadastroTarefaRequisicao";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
+import { format } from "path";
 
 
 
@@ -36,6 +37,8 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
                 return res.status(413).json({ erro: `Limite de caracteres alcançado` });
             }
 
+            //Data
+           
             //Validações do "Dia todo?"
             if (!tarefa.diaTodo) {
                 tarefa.diaTodo = false
