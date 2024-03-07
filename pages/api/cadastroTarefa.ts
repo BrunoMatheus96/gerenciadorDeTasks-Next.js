@@ -5,7 +5,8 @@ import { UsuarioModel } from "@/models/UsuarioModel";
 import { CadastroTarefaRequisicao } from "@/types/CadastroTarefaRequisicao";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
-import { format } from "path";
+import moment from "moment";
+
 
 
 
@@ -37,14 +38,7 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
                 return res.status(413).json({ erro: `Limite de caracteres alcançado` });
             }
 
-            //Data
-           
             //Validações do "Dia todo?"
-            /*
-            if (!tarefa.diaTodo) {
-                tarefa.diaTodo = false
-            }
-            */
 
             //Validações do "Se repete?"
             const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente']; //Lista que esse campo irá aceitar
@@ -55,19 +49,14 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
 
             }
 
-              //Validações de conclusão
-              /*
-              if (!tarefa.conclusao) {
-                tarefa.conclusao = false
-            }
-            */
+            //Validações de conclusão
 
             //salvar no banco de dados
             const tarefaASerSalva = { // Cria uma const com o que é esperado de uma tarefa e isso foi definido no Model
                 idUsuario: usuarioLogado._id,
                 tituloTarefa: tarefa.titulo,
                 descricao: tarefa.descricao,
-                data: tarefa.data,
+                data: tarefa.data ? moment(tarefa.data, "DD/MM/YYYY") : "",
                 hora: tarefa.hora,
                 diaTodo: tarefa.diaTodo,
                 repeticao: tarefa.repeticao,
