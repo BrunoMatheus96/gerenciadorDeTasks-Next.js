@@ -1,3 +1,5 @@
+import { Date } from "mongoose";
+
 export type CadastroTarefaRequisicao = {
     titulo: string,
     descricao: string,
@@ -5,4 +7,5 @@ export type CadastroTarefaRequisicao = {
     hora: string,
     diaTodo: boolean,
     repeticao: string,
+    conclusao: boolean,
     }
