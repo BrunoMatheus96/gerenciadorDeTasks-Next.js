@@ -7,20 +7,35 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any>) => {
     try {
-
         //Definição da requisição e tratativa do método
         //Se meu método for um POST então ele irá requisitar um payload
         if (req.method === "GET") {
 
-            const { userId } = req.query; // Utiliza um destructor para pegar um campo "userID" da query do request
+            const { userId, id } = req.query; // Utiliza um destructor para pegar um campo "userID" e "id" da query do request que fazemos no Postman
             const usuarioLogado = await UsuarioModel.findById(userId); // Procura no banco de usuários o ID do usuário logado
 
-            if (req?.query) {
-                //Vai buscar no banco de Tarefas as tarefas correspondentes com o ID do usuário logado
-                const tarefaPorUsuario = await TarefaModel.find({
-                    idUsuario: usuarioLogado._id,
-                })
+            //Vai buscar no banco de Tarefas as tarefas correspondentes com o ID do usuário logado
+            const tarefaPorUsuario = await TarefaModel.find({
+                idUsuario: usuarioLogado._id
+            })
 
+            if (req?.query?.id) {
+                //Dado que eu vou mandar para pesquisar a tarefa
+                const tarefa = await TarefaModel.findById(id); // Procura no banco o ID da tarefa para o ID logado
+                console.log("O id enviado no postman foi " + id);
+
+                //Se não tiver tarefa regitrada ou essa tarefa não for do o Usuário logado
+                if (!tarefa || tarefa.idUsuario != userId ) //idUsuário do banco Tarefas é diferente do ID do usuário logado no banco de usuários
+                {
+                    return res.status(404).json("Tarefa não encontrada para esse usuário");
+                }
+
+                const tarefaPorId = await TarefaModel.findById(req?.query?.id); // Busca no BD a tarefa usando o id
+
+
+                //console.log(tarefaPorID)
+                return res.status(200).json(tarefaPorId);
+            } else {
                 if (!tarefaPorUsuario) {
                     return res.status(404).json("Ainda não há tarefas cadastradas");
                 }
@@ -37,9 +52,3 @@ const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<Respos
 
 /*Essa linha faz com que quando o if for chamado, ele primeiro vai tentar se conectar ao banco de dados e depois executar o endpoint (if)*/
 export default validarTokenJWT(conectarMongoDB(endpointConsulta));
-
-try {
-
-} catch (error) {
-
-}
