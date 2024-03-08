@@ -2,12 +2,10 @@ import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { TarefaModel } from "@/models/TarefaModel";
 import { UsuarioModel } from "@/models/UsuarioModel";
-import { CadastroTarefaRequisicao } from "@/types/TarefaConsultaRequisicao";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment";
-
-
+import { CadastroTarefaRequisicao } from "@/types/CadastroTarefaRequisicao";
 
 
 const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
@@ -38,18 +36,22 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
                 return res.status(413).json({ erro: `Limite de caracteres alcançado` });
             }
 
-            //Validações do "Dia todo?"
+            //Validações de "Hora"
+
+            // Validações do "Dia todo?"
+            if (typeof tarefa.diaTodo !== 'undefined' && typeof tarefa.diaTodo !== 'boolean') {
+                return res.status(400).json({ erro: `O campo 'diaTodo' deve ser do tipo booleano (true ou false)` });
+            }
+
 
             //Validações do "Se repete?"
             const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente']; //Lista que esse campo irá aceitar
             //No if foi informado que o campo repetição só pode aceitar o array acima, vazio (' ') e nulo ('')
-            if (tarefa.repeticao !== '' && tarefa.repeticao !== ' ' && !tipo.includes(tarefa.repeticao)) {
+            if (tarefa.repeticao !== '' && !tipo.includes(tarefa.repeticao)) {
 
-                return res.status(400).json({ erro: `Essa opção de repetição não é válida` });
+                return res.status(400).json({ erro: `Essa opção não é válida` });
 
             }
-
-            //Validações de conclusão
 
             //salvar no banco de dados
             const tarefaASerSalva = { // Cria uma const com o que é esperado de uma tarefa e isso foi definido no Model
