@@ -2,11 +2,10 @@ import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { TarefaModel } from "@/models/TarefaModel";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
-import { ms } from "date-fns/locale";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-const endpointExclusao = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
+const endpointExclusaoTarefas = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
     try {
         if (req.method === "DELETE") {
 
@@ -14,7 +13,7 @@ const endpointExclusao = async (req: NextApiRequest, res: NextApiResponse<Respos
             const tarefaPorId = await TarefaModel.findById(id); // Procura no banco o ID da tarefa para o ID logado
 
             if (!id) {
-                return res.status(400).json({ erro: `É preciso informar um ID` });
+                return res.status(400).json({ erro: `É preciso informar um ID de uma tarefa` });
 
             } else if (!tarefaPorId || tarefaPorId.idUsuario != userId) //idUsuário do banco Tarefas é diferente do ID do usuário logado no banco de usuários
             {
@@ -38,4 +37,4 @@ const endpointExclusao = async (req: NextApiRequest, res: NextApiResponse<Respos
 }
 
 /*Essa linha faz com que quando o if for chamado, ele primeiro vai tentar se conectar ao banco de dados e depois executar o endpoint (if)*/
-export default validarTokenJWT(conectarMongoDB(endpointExclusao));
+export default validarTokenJWT(conectarMongoDB(endpointExclusaoTarefas));

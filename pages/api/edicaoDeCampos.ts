@@ -3,6 +3,7 @@ import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { TarefaModel } from "@/models/TarefaModel";
 import { CadastroTarefaRequisicao } from "@/types/CadastroTarefaRequisicao";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
+import { validarRepeticaoTarefa } from "@/utils/validacao";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
@@ -29,12 +30,9 @@ const endpointEdicaoDeCampos = async (req: NextApiRequest, res: NextApiResponse<
                     return res.status(400).json({ erro: `O campo 'diaTodo' deve ser do tipo booleano (true ou false)` });
                 }
 
-                //Filtro no 'repetição' para aceitar só o que foi implantado no “cadastro de tarefa”
-                const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente']; //Lista que esse campo irá aceitar
-                //No if foi informado que o campo repetição só pode aceitar o array acima, vazio (' ') e nulo ('')
-                if (tarefaAtualizada.repeticao !== '' && !tipo.includes(tarefaAtualizada.repeticao)) {
-
-                    return res.status(400).json({ erro: `Essa opção não é válida` });
+                //Validações do "Se repete?"
+                if (!validarRepeticaoTarefa(tarefaAtualizada.repeticao)) {
+                    return res.status(400).json({ erro: `Essa opção no campo 'repetição' não é válida` });
                 }
 
                 // Busca a tarefa pelo ID no banco de dados
