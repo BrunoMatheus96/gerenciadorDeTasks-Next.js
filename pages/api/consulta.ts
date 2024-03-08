@@ -23,7 +23,7 @@ const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<Respos
                 console.log("O id enviado no postman foi " + id);
 
                 //Se não tiver tarefa regitrada ou essa tarefa não for do o Usuário logado
-                if (!tarefaPorId || tarefaPorId.idUsuario != usuarioLogado) //idUsuário do banco Tarefas é diferente do ID do usuário logado no banco de usuários
+                if (!tarefaPorId || tarefaPorId.idUsuario !== userId) //idUsuário do banco Tarefas é diferente do ID do usuário logado no banco de usuários
                 {
                     return res.status(404).json({ erro: "Tarefa não encontrada para esse usuário" });
                 }
