@@ -9,10 +9,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any>) => {
     try {
         //Definição da requisição e tratativa do método
-        //Se meu método for um POST então ele irá requisitar um payload
+        //Se meu método for um GET então ele irá requisitar um payload
         if (req.method === "GET") {
 
-            const { userId, id, date } = req.query; // Utiliza um destructor para pegar um campo "userID" e "id" da query do request que fazemos no Postman
+            const { userId, id, date } = req.query; // Utiliza um destructor para pegar os campos enviados na query do request que fazemos no Postman
             const usuarioLogado = await UsuarioModel.findById(userId); // Procura no banco de usuários o ID do usuário logado
 
             //Consulta por ID
@@ -37,27 +37,27 @@ const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<Respos
                 if (date) {
                     const dataFormatada = moment(date, "DD-MM-YYYY"); //Formatando a data para o formato universal
 
-                    const tarefaPorData = await TarefaModel.find({
+                    const tarefasPorData = await TarefaModel.find({
                         data: dataFormatada, 
                         idUsuario: usuarioLogado._id
                     }); // Procura no banco a data da tarefa
 
-                    if (!tarefaPorData || tarefaPorData.length === 0) {
+                    if (!tarefasPorData || tarefasPorData.length === 0) {
                         return res.status(404).json({ erro: "Não há tarefas para essa data" });
                     }
 
-                    return res.status(200).json(tarefaPorData);
+                    return res.status(200).json(tarefasPorData);
                 }
 
                 //Vai buscar no banco de Tarefas as tarefas correspondentes com o ID do usuário logado
-                const tarefaPorUsuario = await TarefaModel.find({
+                const tarefasPorUsuario = await TarefaModel.find({
                     idUsuario: usuarioLogado._id
                 }).sort({ data: -1 }); // Ordena as publicações em ordem decrescente de data
 
-                if (!tarefaPorUsuario || tarefaPorUsuario.length === 0) {
+                if (!tarefasPorUsuario || tarefasPorUsuario.length === 0) {
                     return res.status(404).json({ erro: "Ainda não há tarefas cadastradas" });
                 }
-                return res.status(200).json(tarefaPorUsuario); //Retornar todas as tarefas do usuário logado 
+                return res.status(200).json(tarefasPorUsuario); //Retornar todas as tarefas do usuário logado 
             }
         }
         console.log("Foi requisitado um " + req.method + ` mas correto é um GET`);
