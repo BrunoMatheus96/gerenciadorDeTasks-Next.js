@@ -1,7 +1,6 @@
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { TarefaModel } from "@/models/TarefaModel";
-import { UsuarioModel } from "@/models/UsuarioModel";
 import { ConclusapRequisicao } from "@/types/ConclusaoRequisicao";
 import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -41,7 +40,6 @@ const endpointConclusao = async (req: NextApiRequest, res: NextApiResponse<Respo
                     { new: true } // Para retornar o documento atualizado
                 );
 
-                //await TarefaModel.updateOne(atualizacaoASerSalva); // O método create cria o objeto definido em tarefaASerSalvo na Coleção
                 return res.status(200).json(atualizarConclusao);
             }
         }

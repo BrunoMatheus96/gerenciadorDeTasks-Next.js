@@ -6,6 +6,7 @@ import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment";
 import { CadastroTarefaRequisicao } from "@/types/CadastroTarefaRequisicao";
+import { validarRepeticaoTarefa } from '@/utils/validacao.js';
 
 
 const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
@@ -45,12 +46,8 @@ const endpointCadastroTarefa = async (req: NextApiRequest, res: NextApiResponse<
 
 
             //Validações do "Se repete?"
-            const tipo = ['Diariamente', 'Semanalmente', 'Mensalmente', 'Anualmente']; //Lista que esse campo irá aceitar
-            //No if foi informado que o campo repetição só pode aceitar o array acima, vazio (' ') e nulo ('')
-            if (tarefa.repeticao !== '' && !tipo.includes(tarefa.repeticao)) {
-
-                return res.status(400).json({ erro: `Essa opção não é válida` });
-
+            if (!validarRepeticaoTarefa(tarefa.repeticao)) {
+                return res.status(400).json({ erro: `Essa opção no campo 'repetição' não é válida` });
             }
 
             //salvar no banco de dados
