@@ -1,5 +1,3 @@
-import { Date } from "mongoose";
-
 export type CadastroTarefaRequisicao = {
     titulo: string,
     descricao: string,
