@@ -8,7 +8,6 @@ const TarefaSchema = new Schema({
     tituloTarefa: { type: String, required: true },
     descricao: { type: String, required: false},
     data: { type: Date, required: false},
-    hora: { type: String, required: false},
     diaTodo: { type: Boolean, required: false, default: false },
     repeticao: { type: String, required: false},
     conclusao: {type: Boolean, required: false, default: false}

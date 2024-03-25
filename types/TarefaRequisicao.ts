@@ -1,8 +1,7 @@
-export type CadastroTarefaRequisicao = {
+export type TarefaRequisicao = {
     titulo: string,
     descricao: string,
     data: string,
-    hora: string,
     diaTodo: boolean,
     repeticao: string,
     conclusao: boolean,

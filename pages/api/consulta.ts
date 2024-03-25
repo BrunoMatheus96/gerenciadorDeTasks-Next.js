@@ -13,7 +13,6 @@ const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<Respos
         if (req.method === "GET") {
 
             const { userId, id, date } = req.query; // Utiliza um destructor para pegar os campos enviados na query do request que fazemos no Postman
-            const usuarioLogado = await UsuarioModel.findById(userId); // Procura no banco de usuários o ID do usuário logado
 
             //Consulta por ID
             //Esse id seria o mesmo que req?.query?.id
@@ -32,13 +31,19 @@ const endpointConsulta = async (req: NextApiRequest, res: NextApiResponse<Respos
 
             } else {
 
+                const usuarioLogado = await UsuarioModel.findById(userId); // Procura no banco de usuários o ID do usuário logado
+
                 //Consulta por Data
                 //Esse date seria o mesmo que req?.query?.date
                 if (date) {
-                    const dataFormatada = moment(date, "DD-MM-YYYY"); //Formatando a data para o formato universal
+                    const dataFormatadaInicio = moment(`${date} 00:00`, "DD-MM-YYYY hh:mm"); //Formatando a data para o formato universal
+                    const dataFormatadaFim = moment(`${date} 23:59`, "DD-MM-YYYY hh:mm"); //Formatando a data para o formato universal
 
                     const tarefasPorData = await TarefaModel.find({
-                        data: dataFormatada, 
+                        data:  {
+                            $gte: dataFormatadaInicio,
+                            $lte: dataFormatadaFim
+                        }, 
                         idUsuario: usuarioLogado._id
                     }); // Procura no banco a data da tarefa
 

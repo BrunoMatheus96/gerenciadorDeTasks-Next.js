@@ -33,7 +33,7 @@ const endpointExclusaoUsuarios = async (req: NextApiRequest, res: NextApiRespons
         return res.status(405).json({ erro: "Método informado não é válido" });
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ erro: "Erro ao cadastrar tarefa. Tente novamente mais tarde" });
+        return res.status(500).json({ erro: "Erro ao excluir usuário. Tente novamente mais tarde" });
     }
 }
 
