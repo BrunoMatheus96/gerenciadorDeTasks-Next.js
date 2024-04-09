@@ -1,9 +1,9 @@
-import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
-import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
-import { TarefaModel } from "@/models/TarefaModel";
-import { TarefaRequisicao } from "@/types/TarefaRequisicao";
-import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
-import { validarRepeticaoTarefa } from "@/utils/validacao";
+import { conectarMongoDB } from "../../middlewares/conectarMongoDB";
+import { validarTokenJWT } from "../../middlewares/validarTokenJWT";
+import { TarefaModel } from "../../models/TarefaModel";
+import { TarefaRequisicao } from "../../types/TarefaRequisicao";
+import { RespostaPadraoMsg } from "../../types/RespostaPadraoMsg";
+import { validarRepeticaoTarefa } from "../../utils/validacao";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const endpointEdicaoDeCampos = async (

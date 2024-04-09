@@ -1,12 +1,12 @@
-import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
-import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
-import { TarefaModel } from "@/models/TarefaModel";
-import { UsuarioModel } from "@/models/UsuarioModel";
-import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
+import { conectarMongoDB } from "../../middlewares/conectarMongoDB";
+import { validarTokenJWT } from "../../middlewares/validarTokenJWT";
+import { TarefaModel } from "../../models/TarefaModel";
+import { UsuarioModel } from "../../models/UsuarioModel";
+import { RespostaPadraoMsg } from "../../types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment";
-import { TarefaRequisicao } from "@/types/TarefaRequisicao";
-import { validarRepeticaoTarefa } from "@/utils/validacao.js";
+import { TarefaRequisicao } from "../../types/TarefaRequisicao";
+import { validarRepeticaoTarefa } from "../../utils/validacao.js";
 
 const endpointCadastroTarefa = async (
   req: NextApiRequest,

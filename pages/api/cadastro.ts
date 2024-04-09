@@ -1,6 +1,6 @@
 //Introdução a Node.JS na aula Schemas - Parte 1
-import { CadastroRequisicao } from "@/types/CadastroRequisicao";
-import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
+import { CadastroRequisicao } from "../../types/CadastroRequisicao";
+import { RespostaPadraoMsg } from "../../types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import { conectarMongoDB } from "../../middlewares/conectarMongoDB"; // Importando o middleware de conexão com DB que foi criado
 import { UsuarioModel } from "../../models/UsuarioModel"; // Importando o model do Usuário

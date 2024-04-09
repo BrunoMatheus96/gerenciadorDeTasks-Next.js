@@ -4,8 +4,8 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 import endpointCadastro from "../pages/api/cadastro"; // Verifique o caminho correto para o arquivo cadastro.ts
-import { CadastroRequisicao } from "@/types/CadastroRequisicao";
-import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
+import { CadastroRequisicao } from "../types/CadastroRequisicao";
+import { RespostaPadraoMsg } from "../types/RespostaPadraoMsg";
 import { UsuarioModel } from "../models/UsuarioModel";
 
 // Mock para o model UsuarioModel

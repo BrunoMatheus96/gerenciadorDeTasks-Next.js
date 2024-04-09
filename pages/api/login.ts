@@ -1,9 +1,9 @@
-import { LoginResposta } from "@/types/LoginResposta";
-import { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
+import { LoginResposta } from "../../types/LoginResposta";
+import { RespostaPadraoMsg } from "../../types/RespostaPadraoMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from 'jsonwebtoken';
 import { conectarMongoDB } from '../../middlewares/conectarMongoDB';
-import { UsuarioModel } from "@/models/UsuarioModel";
+import { UsuarioModel } from "../../models/UsuarioModel";
 import md5 from "md5";
 
 
